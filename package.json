@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sanuj/crawler#readme",
   "dependencies": {
-    "axios": "^0.15.3"
+    "axios": "^0.15.3",
+    "winston": "^2.3.1"
   }
 }
