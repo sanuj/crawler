@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sanuj/crawler/issues"
   },
-  "homepage": "https://github.com/sanuj/crawler#readme"
+  "homepage": "https://github.com/sanuj/crawler#readme",
+  "dependencies": {
+    "axios": "^0.15.3"
+  }
 }
