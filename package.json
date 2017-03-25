@@ -4,7 +4,7 @@
   "description": "Crawler for a price manager",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
     "axios": "^0.15.3",
     "cheerio": "^0.22.0",
     "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
   }
 }
