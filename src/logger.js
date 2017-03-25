@@ -1,3 +1,5 @@
+'use strict';
+
 let logger_singleton = null;
 
 if(logger_singleton === null) {
