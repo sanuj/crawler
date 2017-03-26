@@ -7,7 +7,7 @@ const logger = new winston.Logger({
     new winston.transports.DailyRotateFile({
       filename: path.resolve(__dirname, '../logs/crawler'),
       datePattern: '-yyyy-MM-dd.log',
-      level: process.env.NODE_ENV !== 'production' ? 'info' : 'debug'
+      level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info'
     })
   ]
 })
