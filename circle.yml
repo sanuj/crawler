@@ -1,0 +1,16 @@
+machine:
+  node:
+    version: 7.6.0
+
+dependencies:
+  pre:
+    - type -P yarn &> /dev/null || curl -o- -s -L https://yarnpkg.com/install.sh | bash
+  override:
+    - yarn --no-progress
+  cache_directories:
+    - "~/.yarn-cache"
+
+test:
+  override:
+    - yarn run lint
+    - yarn run test
