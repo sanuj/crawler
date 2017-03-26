@@ -3,7 +3,7 @@
 var axios = require('axios')
 var cheerio = require('cheerio')
 var logger = require('../logger.js')
-var util = require('../util.js')
+// var util = require('../util.js')
 
 axios.defaults.timeout = 10000
 
@@ -26,12 +26,12 @@ function parseBuyBoxInfo (response) {
   // writeInFile(__dirname + '/../../files/asin-response.html', response.data);
 
   const $ = cheerio.load(response.data)
-  const buy_box_seller = getBuyBoxSeller($)
-  const buy_box_currency = getBuyBoxCurrency($)
-  const buy_box_price = getBuyBoxPrice($)
-  logger.info(buy_box_seller)
-  logger.info(buy_box_currency)
-  logger.info(buy_box_price)
+  const buyboxseller = getBuyBoxSeller($)
+  const buyboxcurrency = getBuyBoxCurrency($)
+  const buyboxprice = getBuyBoxPrice($)
+  logger.info(buyboxseller)
+  logger.info(buyboxcurrency)
+  logger.info(buyboxprice)
 }
 
 function crawlAsin (asin) {
