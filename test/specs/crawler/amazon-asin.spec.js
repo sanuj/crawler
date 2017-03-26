@@ -43,4 +43,13 @@ describe('amazon-asin', () => {
         })
     })
   })
+
+  describe('#getSellerInfoFromUrl()', () => {
+    it('should return marketplace_id and seller_id from url', (done) => {
+      const sellerinfo = amazon.getSellerInfoFromUrl('https://www.amazon.in/sp?_encoding=UTF8&asin=&isAmazonFulfilled=1&isCBA=&marketplaceID=A21TJRUUN4KGV&orderID=&seller=A1QF42CTKPRMM0&tab=&vasStoreID=')
+      expect(sellerinfo).to.have.property('seller_id').and.equal('A1QF42CTKPRMM0')
+      expect(sellerinfo).to.have.property('marketplace_id').and.equal('A21TJRUUN4KGV')
+      done()
+    })
+  })
 })
