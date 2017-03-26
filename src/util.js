@@ -1,17 +1,18 @@
-var fs = require('fs');
+const fs = require('fs')
+const logger = require('./logger')
 
-exports.writeInFile = (file_name, content) => {
-  fs.writeFile(file_name, content, err => {
-    if(err) return logger.error(err);
-    logger.info('Saved content to file ' + file_name);
-  });
+exports.writeInFile = (filename, content) => {
+  fs.writeFile(filename, content, err => {
+    if (err) return logger.error(err)
+    logger.info(`Saved content to file ${filename}`)
+  })
 }
 
-exports.readFromFile = file_name => {
+exports.readFromFile = filename => {
   return new Promise((resolve, reject) => {
-    fs.readFile(file_name, 'utf8', (err, data) => {
-      if (err) reject(err);
-      else resolve(data);
-    });
-  });
+    fs.readFile(filename, 'utf8', (err, data) => {
+      if (err) reject(err)
+      else resolve(data)
+    })
+  })
 }
