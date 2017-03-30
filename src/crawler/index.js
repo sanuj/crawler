@@ -1,6 +1,6 @@
-const drivers = {
-  amazon: require('./amazon')
-}
+import * as amazon from './amazon'
+
+const drivers = {amazon}
 
 export default class CrawlerFactory {
   constructor () {
