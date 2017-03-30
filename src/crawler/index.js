@@ -7,7 +7,7 @@ export default class CrawlerFactory {
     this.driver = 'amazon'
   }
 
-  async fetch (asin) {
-    return await drivers[this.driver].fetch(asin)
+  async fetch (productId) {
+    return await drivers[this.driver].fetch(productId)
   }
 }
