@@ -13,7 +13,7 @@ export default class AmazonAsinPage {
     const $ = cheer.load(this.html)
 
     const seller = $('#merchant-info')
-    const price = $('#priceblock_ourprice')
+    const price = $('#priceblock_ourprice, #priceblock_saleprice')
     const sellerText = seller.text()
     const matches = /sold by ([^(]+)[\s(]+([0-9.]+)[^|]+[|\s]+([0-9,]+)/i.exec(sellerText)
     const url = seller.children('a').attr('href')
