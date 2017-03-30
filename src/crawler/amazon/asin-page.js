@@ -25,7 +25,7 @@ export default class AmazonAsinPage {
         url: BASE + url,
         rating: parseFloat(matches && matches[2]),
         reviews: parseInt(matches && matches[3].replace(/[^0-9]/g, ''), 10),
-        fulfilled: /fulfilled by amazon/i.test(sellerText),
+        fulfilled: /fulfilled by amazon/i.test(sellerText)
       }),
 
       price: parseFloat(price.text().trim().replace(/[^0-9.]/g, '')),

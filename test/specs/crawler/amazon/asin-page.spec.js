@@ -10,7 +10,7 @@ describe('crawler/amazon/asin', () => {
     const page = new Page(fs.readFileSync(stub('asin-page.html')))
 
     const buyBox = page.buyBox
-    expect(buyBox.seller).not.to.be.null
+    expect(buyBox.seller).not.to.be.undefined
     expect(buyBox.price).to.equal(237097.00)
     expect(buyBox.currency).to.equal('INR')
 
