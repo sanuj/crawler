@@ -1,13 +1,18 @@
 import path from 'path'
 import fs from 'fs'
+import axios from 'axios'
 
-import Page from 'src/crawler/amazon/asin-page'
+import * as stub from 'test/helpers/stub'
 
-const stub = any => path.resolve(path.resolve(__dirname, '../../../stubs/amazon'), any)
+import { default as Page, BASE } from 'src/crawler/amazon/asin-page'
 
 describe('crawler/amazon/asin', () => {
-  it('should parse buy box', () => {
-    const page = new Page(fs.readFileSync(stub('asin-page')))
+  before(() => {
+    stub.use('crawler/amazon', async any => (await axios.get(`${BASE}/dp/${any}`)).data)
+  })
+
+  it('should parse buy box', async () => {
+    const page = new Page(await stub.load('asin-page', false))
 
     const buyBox = page.buyBox
     expect(buyBox.seller).not.to.be.undefined
@@ -20,8 +25,9 @@ describe('crawler/amazon/asin', () => {
     expect(seller.reviews).to.equal(2194)
     expect(seller.id).to.equal('AWO781LMQ8MJ4')
   })
-  it('should parse buy box on sale page', () => {
-    const page = new Page(fs.readFileSync(stub('asin-page-sale')))
+
+  it('should parse buy box on sale page', async () => {
+    const page = new Page(await stub.load('asin-page-sale', false))
 
     const buyBox = page.buyBox
     expect(buyBox.seller).not.to.be.undefined
