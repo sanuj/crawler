@@ -1,10 +1,8 @@
-import path from 'path'
-import fs from 'fs'
 import axios from 'axios'
 
 import * as stub from 'test/helpers/stub'
 
-import { default as Page, BASE } from 'src/crawler/amazon/asin-page'
+import { BASE, default as Page } from 'src/crawler/amazon/asin-page'
 
 describe('crawler/amazon/asin', () => {
   before(() => {
