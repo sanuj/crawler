@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha test/specs/**/*.spec.js --require test/helpers/index.js --reporter spec",
     "lint": "eslint test/ src/",
-    "lint:fix": "eslint --fix test/ src/"
+    "lint:fix": "eslint --fix test/ src/",
+    "try": "NODE_ENV=development babel-node src/main.js",
+    "build": "babel . -d .dist --ignore=\"node_modules\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,11 @@
   "homepage": "https://github.com/sanuj/crawler#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015-node5": "^1.2.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "babel-register": "^6.24.0",
     "cheerio": "^0.22.0",
     "winston": "^2.3.1",
     "winston-daily-rotate-file": "^1.4.6"

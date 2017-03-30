@@ -1,5 +1,5 @@
-const fs = require('fs')
-const logger = require('./logger')
+import fs from 'fs'
+import logger from './logger'
 
 exports.writeInFile = (filename, content) => {
   fs.writeFile(filename, content, err => {

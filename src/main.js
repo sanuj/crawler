@@ -1,7 +1,12 @@
-const logger = require('./logger.js')
+import logger from './logger'
+import Crawler from './crawler'
+import { version } from '../package.json'
 
-logger.info('Foo Bar!')
+logger.info(`Exponent Crawler ${version}`)
 
-// For debugging.
-var amazon = require('./crawler/amazon-asin.js')
-amazon.crawlAsin('B01NCE2FHK')
+const crawler = new Crawler()
+try {
+  crawler.fetch('B01NCE2FHK').then(box => logger.info(JSON.stringify(box, null, 2)))
+} catch (e) {
+  logger.error(e)
+}
