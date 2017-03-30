@@ -4,11 +4,11 @@
   "description": "Crawler for a price manager",
   "main": "src/main.js",
   "scripts": {
-    "test": "mocha test/specs/**/*.spec.js --require test/helpers/index.js --reporter spec",
+    "test": "mocha --compilers js:babel-core/register test/specs/**/*.spec.js --require test/helpers/index.js --reporter spec",
     "lint": "eslint test/ src/",
     "lint:fix": "eslint --fix test/ src/",
     "try": "NODE_ENV=development babel-node src/main.js",
-    "build": "babel . -d .dist --ignore=\"node_modules\""
+    "build": "babel src -d dist --ignore=\"node_modules\""
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
     "mocha": "^3.2.0",
+    "module-alias": "^2.0.0",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.9.0"
   }

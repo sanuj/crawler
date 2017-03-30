@@ -21,18 +21,18 @@ export default class AmazonAsinPage {
     return new BuyBox({
       seller: new Seller({
         id: query.parse(url).seller,
-        name: matches && matches[1],
+        name: matches && matches[1].trim(),
         url: BASE + url,
         rating: parseFloat(matches && matches[2]),
         reviews: parseInt(matches && matches[3].replace(/[^0-9]/g, ''), 10),
         fulfilled: /fulfilled by amazon/i.test(sellerText),
       }),
 
-      price: price.text().trim(),
+      price: parseFloat(price.text().trim().replace(/[^0-9.]/g, '')),
 
       currency: (price.children('span')
         .attr('class') || '')
-        .replace(/currency([^a-z])/i, any => any[1])
+        .replace(/.*currency([a-z]+).*/i, (_, c) => c)
     })
   }
 }
