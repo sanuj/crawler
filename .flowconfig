@@ -1,0 +1,13 @@
+[ignore]
+.*/node_modules/.*
+.*/flow-typed/.*
+.*/test/.*
+.*/logs/.*
+
+[include]
+
+[libs]
+flow
+
+[options]
+unsafe.enable_getters_and_setters=true
