@@ -6,7 +6,7 @@ import { BASE, default as Page } from 'src/crawler/amazon-in/parsers/buy-box'
 
 describe('crawler/amazon/asin', () => {
   before(() => {
-    stub.use('crawler/amazon', async any => (await axios.get(`${BASE}/dp/${any}`)).data)
+    stub.use('crawler/amazon-in', async any => (await axios.get(`${BASE}/dp/${any}`)).data)
   })
 
   it('should parse buy box', async () => {

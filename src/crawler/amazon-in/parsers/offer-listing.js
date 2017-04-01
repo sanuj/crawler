@@ -5,7 +5,7 @@ import query from 'querystring'
 import Product from '../../../entities/product'
 import Seller from '../../../entities/seller'
 
-const parseAmount = (text: string): number => parseFloat(text.replace(/.*([^0-9.,])+.*/g, (_, price) => price.replace(',', '')))
+const parseAmount = (text: string): number => parseFloat(text.replace(/[^0-9]*([0-9.,]+).*/g, (_, price) => price.replace(/[,]/g, '')))
 
 export default
 class OfferListingParser implements ParserContract {
@@ -18,7 +18,7 @@ class OfferListingParser implements ParserContract {
       prime: this.isPrime(product),
       fulfilled: this.isFulfilled(product),
       rating: this.rating(product),
-      reviews: this.rating(product),
+      reviews: this.reviews(product),
       seller: this.seller(product)
     }))
   }
@@ -43,11 +43,11 @@ class OfferListingParser implements ParserContract {
   static shipping (product: CheerioElement): Price {
     const selector = '.olpPriceColumn .olpShippingInfo .olpShippingPrice'
     const amount: number = parseAmount(cheerio(selector, product).text())
-    const currency: string = cheerio(`${selector} span[class^=currency]`, product).attr('class').replace('currency', '')
+    const currency: string = cheerio(`${selector} span[class^=currency]`, product).attr('class')
 
     return {
       amount: Number.isNaN(amount) ? 0 : amount,
-      currency: currency || 'INR'
+      currency: currency ? currency.replace('currency', '') : 'INR'
     }
   }
 
@@ -58,7 +58,7 @@ class OfferListingParser implements ParserContract {
 
   /** @private */
   static isFulfilled (product: CheerioElement): boolean {
-    return cheerio('.olpDeliveryColumn .olpFbaPopoverTrigger', product).length > 1
+    return cheerio('.olpDeliveryColumn .olpFbaPopoverTrigger', product).length > 0
   }
 
   /** @private */
@@ -70,8 +70,8 @@ class OfferListingParser implements ParserContract {
 
   /** @private */
   static reviews (product: CheerioElement): number {
-    const reviews = parseInt(cheerio('.olpSellerColumn i.a-icon-star + a', product)
-      .text().replace(/.*\([\s]*([0-9,]+).*/, (_, r) => r).replace(',', ''))
+    const reviews = parseInt(cheerio('.olpSellerColumn .olpSellerName + p', product)
+      .text().replace(/[^(]*\([\s]*([0-9,]+).*/, (_, r) => r).replace(/,/g, ''))
 
     return Number.isNaN(reviews) ? 0 : reviews
   }
