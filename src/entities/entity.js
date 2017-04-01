@@ -20,6 +20,6 @@ class Entity implements EntityContract {
   }
 
   toString (): string {
-    return this.toJSON()
+    return JSON.stringify(this._attributes, null, 2)
   }
 }

@@ -10,8 +10,6 @@ axios.interceptors.request.use(config => {
 
 if (process.env.NODE_ENV !== 'production') {
   axios.interceptors.response.use(response => {
-    logger.debug(response.data)
-
     return response
   }, error => {
     logger.error(error)

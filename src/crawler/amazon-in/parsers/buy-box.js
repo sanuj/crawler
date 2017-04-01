@@ -12,13 +12,13 @@ class BuyBoxParser implements ParserContract {
     const seller = $('#merchant-info')
     const price = $('#priceblock_ourprice, #priceblock_saleprice')
     const sellerText = seller.text()
-    const matches = /sold by ([^(]+)[\s(]+([0-9.]+)[^|]+[|\s]+([0-9,]+)/i.exec(sellerText)
+    const matches = /([^(]*)[\s(]+([0-9.]+)[^|]+[|\s]+([0-9,]+)/i.exec(sellerText)
     const url = seller.children('a').attr('href')
 
     return new Product({
       seller: new Seller({
         id: query.parse(url).seller,
-        name: matches && matches[1].trim(),
+        name: $('#merchant-info a:first-child').text().trim(),
         url: `https://amazon.in${url}`
       }),
 

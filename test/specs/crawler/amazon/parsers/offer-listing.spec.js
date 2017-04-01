@@ -4,7 +4,7 @@ import * as stub from 'test/helpers/stub'
 
 import Page from 'src/crawler/amazon-in/parsers/offer-listing'
 
-describe('crawler/amazon/asin', () => {
+describe('crawler/amazon/parsers/offer-listing', () => {
   before(() => {
     stub.use('crawler/amazon-in', async any => (await axios.get(`http://amazon.in/gp/offer-listing/${any}`)).data)
   })
@@ -73,5 +73,37 @@ describe('crawler/amazon/asin', () => {
     seller = product.seller
     expect(seller.name, 'have a seller name').to.equal('Kochar Computers')
     expect(seller.id, 'have a unique seller id').to.equal('AKBQR4OZP5SYL')
+  })
+})
+
+describe('crawler/amazon/parsers/offer-listing (live)', () => {
+  before(() => {
+    stub.use('crawler/amazon-in/offer-listing', async any => (await axios.get(`https://amazon.in/gp/offer-listing/${any}`)).data)
+  })
+
+  const asins = [`B01NCE2FHK`, `074325807X`, `B00JWIY9IK`, `B00Q6K11DS`, `B01AW1U2L8`, `B01I1Z6AM2`, `B01M59KN5H`, `B06WGTMS7V`, `B000S6N3NW`, `B007E9E9CK`]
+
+  asins.forEach(asin => {
+    it(`should parse ${asin} correctly`, async () => {
+      const products = Page.parse(await stub.load(asin))
+
+      products.forEach(product => {
+        expect(product.seller, 'have a seller').not.to.be.undefined
+        expect(product.price.amount, 'have a price').to.be.number
+        expect(product.price.currency, 'have a price in known currency').to.be.string
+        expect(product.shipping.amount, 'have a shipping price').to.be.number
+        expect(product.shipping.currency, 'have a shipping price in known currency').to.be.number
+        expect(product.rating, 'have a star rating').to.be.number
+        expect(product.reviews, 'have reviews').to.be.nuber
+        expect(product.fulfilled, 'can be fulfilled').to.be.boolean
+        expect(product.prime, 'can be prime').to.be.boolean
+
+        const seller = product.seller
+        expect(seller.name, 'have a seller name').to.be.string
+        expect(seller.id, 'have a unique seller id').to.be.string
+      })
+
+      return true
+    })
   })
 })
