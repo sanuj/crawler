@@ -4,6 +4,7 @@
   "description": "Crawler for a price manager",
   "main": "src/main.js",
   "scripts": {
+    "pretest": "flow && yarn run lint",
     "test": "mocha --compilers js:babel-core/register test/specs/**/*.spec.js --require test/helpers/index.js --reporter spec",
     "lint": "eslint test/ src/",
     "lint:fix": "eslint --fix test/ src/",
@@ -32,11 +33,16 @@
     "winston-daily-rotate-file": "^1.4.6"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "chai": "^3.5.0",
     "eslint": "^3.18.0",
     "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.42.0",
     "mocha": "^3.2.0",
     "module-alias": "^2.0.0",
     "sinon": "^2.1.0",
