@@ -19,3 +19,9 @@ interface CrawlerDriverContract {
 }
 
 type Price = { amount: number, currency: string }
+
+interface StorageDriver {
+  connect();
+
+  insert (table: string, data: Array | Object);
+}
