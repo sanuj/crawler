@@ -11,7 +11,7 @@ class Storage {
     this.connections = {}
   }
 
-  async insert (collection: string, data: Array | Object) {
+  async insert (collection: string, data: Object): Promise<*> {
     await this.connect()
 
     return this.connection.insert(collection, data)
@@ -23,16 +23,16 @@ class Storage {
   }
 
   /** @private */
-  connect () {
+  connect (): Promise<*> {
     if (!(this.driver in this.connections)) {
-      this[`create_${this.driver}`]()
+      this[`create-${this.driver}`]()
     }
 
     return this.connection.connect()
   }
 
   /** @private */
-  create_mongodb () {
+  'create-mongodb' () {
     this.connections['mongodb'] = new MongodbDriver({})
   }
 }

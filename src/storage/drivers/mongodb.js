@@ -13,7 +13,7 @@ class MongodbDriver implements StorageDriver {
   }
 
   /** @private */
-  connect () {
+  connect (): Promise<*> {
     if (this.connected) return true
 
     return new Promise((resolve, reject) => {
@@ -27,7 +27,7 @@ class MongodbDriver implements StorageDriver {
     })
   }
 
-  async insert (collection: string, data: Array | Object) {
+  async insert (collection: string, data: Array | Object): Promise<*> {
     await this.connect()
 
     return new Promise((resolve, reject) => {

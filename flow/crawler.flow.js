@@ -18,10 +18,11 @@ interface CrawlerDriverContract {
   buyBox (uid: string): Promise<BuyBox>;
 }
 
-type Price = { amount: number, currency: string }
 
 interface StorageDriver {
-  connect();
+  connect (): Promise<*>;
 
-  insert (table: string, data: Array | Object);
+  insert (table: string, data: Object): Promise<*>;
 }
+
+type Price = { amount: number, currency: string }
