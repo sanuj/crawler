@@ -1,4 +1,14 @@
 // @flow
+function toJson (value) {
+  if (Array.isArray(value)) {
+    return value.map(any => toJson(any))
+  } else if (value instanceof Entity) {
+    return value.toJSON()
+  } else {
+    return value
+  }
+}
+
 export default
 class Entity implements EntityContract {
   _attributes: { [string]: any }
@@ -15,11 +25,18 @@ class Entity implements EntityContract {
     this._attributes[key] = value
   }
 
-  toJSON (): string {
-    return JSON.stringify(this._attributes)
+  toJSON (): Object {
+    const keys = Object.keys(this._attributes)
+    const result = {}
+
+    keys.forEach(key => {
+      result[key] = toJson(this._attributes[key])
+    })
+
+    return result
   }
 
   toString (): string {
-    return JSON.stringify(this._attributes, null, 2)
+    return JSON.stringify(this.toJSON())
   }
 }
