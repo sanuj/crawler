@@ -1,13 +1,24 @@
-import * as amazon from './amazon'
+// @flow
+import AmazonIndia from './amazon-in'
+import BuyBox from '../entities/buy-box'
 
-const drivers = {amazon}
+const drivers: { [string]: CrawlerDriverContract } = {
+  'amazon.in': new AmazonIndia()
+}
 
-export default class CrawlerFactory {
-  constructor () {
-    this.driver = 'amazon'
+export default
+class CrawlerFactory {
+  driver: string
+
+  constructor (driver: string = 'amazon.in') {
+    this.driver = driver
   }
 
-  async fetch (productId) {
-    return await drivers[this.driver].fetch(productId)
+  use (driver: ?string): CrawlerDriverContract {
+    return drivers[typeof (driver) === 'string' ? driver : this.driver]
+  }
+
+  async buyBox (id: string): Promise<BuyBox> {
+    return this.use().buyBox(id)
   }
 }
