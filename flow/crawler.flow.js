@@ -3,7 +3,8 @@ import BuyBox from '../src/entities/buy-box'
 interface EntityContract {
   get (key: string): any;
   set (key: string, value: any): void;
-  toJSON (): string;
+  toJSON (): Object;
+  toString (): string;
 }
 
 interface ParserContract {
